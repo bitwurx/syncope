@@ -33,6 +33,18 @@ RUN chown tomcat8:tomcat8 /etc/tomcat8/Catalina/localhost/syncope.xml
 ADD connid.properties /etc/apache-syncope/connid.properties 
 RUN chown tomcat8:tomcat8 /etc/apache-syncope/connid.properties
 
+RUN chmod 775 -R /etc/tomcat8 && \
+    chmod 775 -R /var/log/tomcat8 && \
+    chmod 775 -R /var/cache/tomcat8 && \
+    chmod 775 -R /var/lib/tomcat8 && \
+    chmod 775 -R /usr/share/tomcat8
+
+RUN chown tomcat8:root -R /etc/tomcat8 && \
+    chown tomcat8:root -R /var/log/tomcat8 && \
+    chown tomcat8:root -R /var/cache/tomcat8 && \
+    chown tomcat8:root -R /var/lib/tomcat8 && \
+    chown tomcat8:root -R /usr/share/tomcat8
+
 USER tomcat8
 RUN mkdir /tmp/tomcat8-tomcat8-tmp
 #ENV JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server \
@@ -58,6 +70,4 @@ CMD ["/usr/lib/jvm/default-java/bin/java", \
 "-Djava.io.tmpdir=/tmp/tomcat8-tomcat8-tmp", \
 "org.apache.catalina.startup.Bootstrap", \
 "start"]
-
-
 
